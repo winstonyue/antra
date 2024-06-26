@@ -1,0 +1,471 @@
+Assignment 1
+Test your Knowledge
+1.      string
+	float/double
+	int
+	enum
+	decimal
+	string
+	decimal
+	float/double
+	long
+	ulong
+	int
+2.	values types store the actual data, reference types store references to the actual data
+	boxing converts a value type to a reference type, unboxing converts the reference type back to the value type
+3. 	managed resources are managed by .NET runtime garbage collector, unmanaged resources are not and require explicit 	cleanup.
+4.	the garbage collector automatically frees memory by removing objects that are not being used anymore to prevent 	memory leaks
+
+Playing with Console App
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Enter your favorite color:");
+        string color = Console.ReadLine();
+
+        Console.WriteLine("Enter your astrology sign:");
+        string sign = Console.ReadLine();
+
+        Console.WriteLine("Enter your street address number:");
+        string addressNumber = Console.ReadLine();
+
+        string hackerName = $"{color}{sign}{addressNumber}";
+        Console.WriteLine($"Your hacker name is {hackerName}.");
+    }
+}
+
+Practice number sizes and ranges
+1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine($"sbyte: Size = {sizeof(sbyte)} bytes, Min = {sbyte.MinValue}, Max = {sbyte.MaxValue}");
+        Console.WriteLine($"byte: Size = {sizeof(byte)} bytes, Min = {byte.MinValue}, Max = {byte.MaxValue}");
+        Console.WriteLine($"short: Size = {sizeof(short)} bytes, Min = {short.MinValue}, Max = {short.MaxValue}");
+        Console.WriteLine($"ushort: Size = {sizeof(ushort)} bytes, Min = {ushort.MinValue}, Max = {ushort.MaxValue}");
+        Console.WriteLine($"int: Size = {sizeof(int)} bytes, Min = {int.MinValue}, Max = {int.MaxValue}");
+        Console.WriteLine($"uint: Size = {sizeof(uint)} bytes, Min = {uint.MinValue}, Max = {uint.MaxValue}");
+        Console.WriteLine($"long: Size = {sizeof(long)} bytes, Min = {long.MinValue}, Max = {long.MaxValue}");
+        Console.WriteLine($"ulong: Size = {sizeof(ulong)} bytes, Min = {ulong.MinValue}, Max = {ulong.MaxValue}");
+        Console.WriteLine($"float: Size = {sizeof(float)} bytes, Min = {float.MinValue}, Max = {float.MaxValue}");
+        Console.WriteLine($"double: Size = {sizeof(double)} bytes, Min = {double.MinValue}, Max = {double.MaxValue}");
+        Console.WriteLine($"decimal: Size = {sizeof(decimal)} bytes, Min = {decimal.MinValue}, Max = {decimal.MaxValue}");
+    }
+}
+
+2.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of centuries: ");
+        int centuries = int.Parse(Console.ReadLine());
+
+        int years = centuries * 100;
+        long days = (long)(years * 365.2425);
+        long hours = days * 24;
+        long minutes = hours * 60;
+        long seconds = minutes * 60;
+        long milliseconds = seconds * 1000;
+        long microseconds = milliseconds * 1000;
+        long nanoseconds = microseconds * 1000;
+
+        Console.WriteLine($"{centuries} centuries = {years} years = {days} days = {hours} hours = {minutes} minutes = {seconds} seconds = {milliseconds} milliseconds = {microseconds} microseconds = {nanoseconds} nanoseconds");
+    }
+}
+
+Controlling Flow and Converting Types
+
+Test your Knowledge
+1.	DivideByZeroException
+2.	Infinity
+3.	It will wrap around to the minimum value
+4.	x=y++ will assign y to x then increment y, x=++y will assign y+1 directly
+5.	break will exist loop, continue skips the current iteration and continues the next, return exits the current method
+6.	initialization, condition, and increment, all are optional
+7.	= is assignment, == is equality comparison
+8.	yes, it creates infinite loop
+9.	default case
+10.	IEnumerable
+
+Practice Loops and Operators
+1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 1; i <= 100; i++)
+        {
+            if (i % 3 == 0 && i % 5 == 0)
+                Console.WriteLine("fizzbuzz");
+            else if (i % 3 == 0)
+                Console.WriteLine("fizz");
+            else if (i % 5 == 0)
+                Console.WriteLine("buzz");
+            else
+                Console.WriteLine(i);
+        }
+    }
+}
+
+2.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int max = 500;
+        for (byte i = 0; i < max; i++)
+        {
+            if (i == byte.MaxValue)
+            {
+                Console.WriteLine("Warning: Byte overflow detected.");
+                break;
+            }
+            Console.WriteLine(i);
+        }
+    }
+}
+3.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int correctNumber = new Random().Next(1, 4);
+        Console.WriteLine("Guess the number between 1 and 3:");
+
+        int guessedNumber = int.Parse(Console.ReadLine());
+
+        if (guessedNumber < 1 || guessedNumber > 3)
+            Console.WriteLine("Invalid guess. Please enter a number between 1 and 3.");
+        else if (guessedNumber < correctNumber)
+            Console.WriteLine("Too low.");
+        else if (guessedNumber > correctNumber)
+            Console.WriteLine("Too high.");
+        else
+            Console.WriteLine("Correct!");
+    }
+}
+
+Assignment 2
+Test your Knowledge
+1.	Use String when you need immutable strings and simple operations, use StringBuilder when you need to perform 	multiple manipulations for better performance and efficiency
+2.	System.Array
+3.	Array.Sort()
+4.	.Length
+5.	no
+6.	CopyTo() copes the elements of the array to another existing array, Clone() creates a shallow copy of the array
+
+Practice Arrays
+1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] originalArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] copiedArray = new int[originalArray.Length];
+
+        for (int i = 0; i < originalArray.Length; i++)
+        {
+            copiedArray[i] = originalArray[i];
+        }
+
+        Console.WriteLine("Original Array: " + string.Join(", ", originalArray));
+        Console.WriteLine("Copied Array: " + string.Join(", ", copiedArray));
+    }
+}
+2.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<string> items = new List<string>();
+        while (true)
+        {
+            Console.WriteLine("Enter command (+ item, - item, or -- to clear):");
+            string input = Console.ReadLine();
+
+            if (input.StartsWith("+ "))
+            {
+                items.Add(input.Substring(2));
+            }
+            else if (input.StartsWith("- "))
+            {
+                items.Remove(input.Substring(2));
+            }
+            else if (input == "--")
+            {
+                items.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Invalid command.");
+            }
+
+            Console.WriteLine("Current List: " + string.Join(", ", items));
+        }
+    }
+}
+3.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        int[] primes = FindPrimesInRange(10, 50);
+        Console.WriteLine("Primes: " + string.Join(", ", primes));
+    }
+
+    static int[] FindPrimesInRange(int startNum, int endNum)
+    {
+        List<int> primes = new List<int>();
+
+        for (int i = startNum; i <= endNum; i++)
+        {
+            if (IsPrime(i))
+            {
+                primes.Add(i);
+            }
+        }
+
+        return primes.ToArray();
+    }
+
+    static bool IsPrime(int number)
+    {
+        if (number < 2) return false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+}
+4.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arr = { 3, 2, 4, -1 };
+        int k = 2;
+        int[] sum = new int[arr.Length];
+
+        for (int r = 1; r <= k; r++)
+        {
+            RotateRight(arr);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sum[i] += arr[i];
+            }
+        }
+
+        Console.WriteLine("Sum: " + string.Join(", ", sum));
+    }
+
+    static void RotateRight(int[] array)
+    {
+        int last = array[array.Length - 1];
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            array[i] = array[i - 1];
+        }
+        array[0] = last;
+    }
+}
+5.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arr = { 2, 1, 1, 2, 3, 3, 2, 2, 2, 1 };
+        int maxLength = 1;
+        int currentLength = 1;
+        int number = arr[0];
+        int bestNumber = arr[0];
+
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] == arr[i - 1])
+            {
+                currentLength++;
+            }
+            else
+            {
+                currentLength = 1;
+            }
+
+            if (currentLength > maxLength)
+            {
+                maxLength = currentLength;
+                bestNumber = arr[i];
+            }
+        }
+
+        for (int i = 0; i < maxLength; i++)
+        {
+            Console.Write(bestNumber + " ");
+        }
+    }
+}
+6.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arr = { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
+        Dictionary<int, int> frequency = new Dictionary<int, int>();
+
+        foreach (int number in arr)
+        {
+            if (!frequency.ContainsKey(number))
+            {
+                frequency[number] = 0;
+            }
+            frequency[number]++;
+        }
+
+        int mostFrequent = arr[0];
+        int maxCount = 0;
+
+        foreach (var pair in frequency)
+        {
+            if (pair.Value > maxCount)
+            {
+                maxCount = pair.Value;
+                mostFrequent = pair.Key;
+            }
+        }
+
+        Console.WriteLine($"The number {mostFrequent} is the most frequent (occurs {maxCount} times)");
+    }
+}
+Practice Strings
+1.
+using char:
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        char[] charArray = input.ToCharArray();
+        Array.Reverse(charArray);
+        string reversed = new string(charArray);
+        Console.WriteLine(reversed);
+    }
+}
+using for loop:
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        for (int i = input.Length - 1; i >= 0; i--)
+        {
+            Console.Write(input[i]);
+        }
+        Console.WriteLine();
+    }
+}
+2.
+using System;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "C# is not C++, and PHP is not Delphi!";
+        string[] words = Regex.Split(input, @"([.,:;=\(\)&\[\]\""\'\\\/!? ])");
+        Array.Reverse(words);
+        string reversedSentence = string.Join("", words);
+        Console.WriteLine(reversedSentence);
+    }
+}
+3.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "Hi,exe? ABBA! Hog fully a string: ExE. Bob";
+        HashSet<string> palindromes = new HashSet<string>();
+        string[] words = input.Split(new char[] { ' ', ',', '.', '?', '!', ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (string word in words)
+        {
+            if (IsPalindrome(word))
+            {
+                palindromes.Add(word);
+            }
+        }
+
+        Console.WriteLine(string.Join(", ", palindromes));
+    }
+
+    static bool IsPalindrome(string word)
+    {
+        int length = word.Length;
+        for (int i = 0; i < length / 2; i++)
+        {
+            if (word[i] != word[length - i - 1])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+4.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string url = "https://www.apple.com/iphone";
+        Uri uri = new Uri(url);
+
+        string protocol = uri.Scheme;
+        string server = uri.Host;
+        string resource = uri.PathAndQuery;
+
+        Console.WriteLine($"[protocol] = \"{protocol}\"");
+        Console.WriteLine($"[server] = \"{server}\"");
+        Console.WriteLine($"[resource] = \"{resource}\"");
+    }
+}
